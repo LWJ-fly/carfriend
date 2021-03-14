@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.wenmeng.dao.UinacarinfoMapper">
+  <resultMap id="BaseResultMap" type="online.wenmeng.bean.Uinacarinfo">
+    <id column="poolingcarid" jdbcType="INTEGER" property="poolingcarid" />
+    <id column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="chathead" jdbcType="VARCHAR" property="chathead" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="incarmsg" jdbcType="VARCHAR" property="incarmsg" />
+    <result column="jointime" jdbcType="TIMESTAMP" property="jointime" />
+    <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="instatus" jdbcType="INTEGER" property="instatus" />
+    <result column="outinfo" jdbcType="INTEGER" property="outinfo" />
+    <result column="qqnum" jdbcType="VARCHAR" property="qqnum" />
+    <result column="wxnum" jdbcType="VARCHAR" property="wxnum" />
+    <result column="phone" jdbcType="BIGINT" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    poolingcarid, userid, nickname, chathead, gender, incarmsg, jointime, endtime, instatus, 
+    outinfo, qqnum, wxnum, phone, email
+  </sql>
+  <select id="selectByExample" parameterType="online.wenmeng.bean.UinacarinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uinacarinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="online.wenmeng.bean.UinacarinfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from uinacarinfo
+    where poolingcarid = #{poolingcarid,jdbcType=INTEGER}
+      and userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="online.wenmeng.bean.UinacarinfoKey">
+    delete from uinacarinfo
+    where poolingcarid = #{poolingcarid,jdbcType=INTEGER}
+      and userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="online.wenmeng.bean.UinacarinfoExample">
+    delete from uinacarinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="online.wenmeng.bean.Uinacarinfo">
+    insert into uinacarinfo (poolingcarid, userid, nickname, 
+      chathead, gender, incarmsg, 
+      jointime, endtime, instatus, 
+      outinfo, qqnum, wxnum, 
+      phone, email)
+    values (#{poolingcarid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, 
+      #{chathead,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{incarmsg,jdbcType=VARCHAR}, 
+      #{jointime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{instatus,jdbcType=INTEGER}, 
+      #{outinfo,jdbcType=INTEGER}, #{qqnum,jdbcType=VARCHAR}, #{wxnum,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="online.wenmeng.bean.Uinacarinfo">
+    insert into uinacarinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="poolingcarid != null">
+        poolingcarid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="chathead != null">
+        chathead,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="incarmsg != null">
+        incarmsg,
+      </if>
+      <if test="jointime != null">
+        jointime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="instatus != null">
+        instatus,
+      </if>
+      <if test="outinfo != null">
+        outinfo,
+      </if>
+      <if test="qqnum != null">
+        qqnum,
+      </if>
+      <if test="wxnum != null">
+        wxnum,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="poolingcarid != null">
+        #{poolingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="chathead != null">
+        #{chathead,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="incarmsg != null">
+        #{incarmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null">
+        #{jointime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="instatus != null">
+        #{instatus,jdbcType=INTEGER},
+      </if>
+      <if test="outinfo != null">
+        #{outinfo,jdbcType=INTEGER},
+      </if>
+      <if test="qqnum != null">
+        #{qqnum,jdbcType=VARCHAR},
+      </if>
+      <if test="wxnum != null">
+        #{wxnum,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="online.wenmeng.bean.UinacarinfoExample" resultType="java.lang.Long">
+    select count(*) from uinacarinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update uinacarinfo
+    <set>
+      <if test="record.poolingcarid != null">
+        poolingcarid = #{record.poolingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chathead != null">
+        chathead = #{record.chathead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.incarmsg != null">
+        incarmsg = #{record.incarmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jointime != null">
+        jointime = #{record.jointime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.instatus != null">
+        instatus = #{record.instatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.outinfo != null">
+        outinfo = #{record.outinfo,jdbcType=INTEGER},
+      </if>
+      <if test="record.qqnum != null">
+        qqnum = #{record.qqnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxnum != null">
+        wxnum = #{record.wxnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=BIGINT},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update uinacarinfo
+    set poolingcarid = #{record.poolingcarid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      chathead = #{record.chathead,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
+      incarmsg = #{record.incarmsg,jdbcType=VARCHAR},
+      jointime = #{record.jointime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      instatus = #{record.instatus,jdbcType=INTEGER},
+      outinfo = #{record.outinfo,jdbcType=INTEGER},
+      qqnum = #{record.qqnum,jdbcType=VARCHAR},
+      wxnum = #{record.wxnum,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=BIGINT},
+      email = #{record.email,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="online.wenmeng.bean.Uinacarinfo">
+    update uinacarinfo
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="chathead != null">
+        chathead = #{chathead,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="incarmsg != null">
+        incarmsg = #{incarmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null">
+        jointime = #{jointime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="instatus != null">
+        instatus = #{instatus,jdbcType=INTEGER},
+      </if>
+      <if test="outinfo != null">
+        outinfo = #{outinfo,jdbcType=INTEGER},
+      </if>
+      <if test="qqnum != null">
+        qqnum = #{qqnum,jdbcType=VARCHAR},
+      </if>
+      <if test="wxnum != null">
+        wxnum = #{wxnum,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where poolingcarid = #{poolingcarid,jdbcType=INTEGER}
+      and userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.wenmeng.bean.Uinacarinfo">
+    update uinacarinfo
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      chathead = #{chathead,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      incarmsg = #{incarmsg,jdbcType=VARCHAR},
+      jointime = #{jointime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      instatus = #{instatus,jdbcType=INTEGER},
+      outinfo = #{outinfo,jdbcType=INTEGER},
+      qqnum = #{qqnum,jdbcType=VARCHAR},
+      wxnum = #{wxnum,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=BIGINT},
+      email = #{email,jdbcType=VARCHAR}
+    where poolingcarid = #{poolingcarid,jdbcType=INTEGER}
+      and userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

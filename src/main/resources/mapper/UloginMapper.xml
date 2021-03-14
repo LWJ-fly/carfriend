@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.wenmeng.dao.UloginMapper">
+  <resultMap id="BaseResultMap" type="online.wenmeng.bean.Ulogin">
+    <id column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="qqlogin" jdbcType="VARCHAR" property="qqlogin" />
+    <result column="wxlogin" jdbcType="VARCHAR" property="wxlogin" />
+    <result column="zfblogin" jdbcType="VARCHAR" property="zfblogin" />
+    <result column="tblogin" jdbcType="VARCHAR" property="tblogin" />
+    <result column="userlogin" jdbcType="VARCHAR" property="userlogin" />
+    <result column="userpwd" jdbcType="VARCHAR" property="userpwd" />
+    <result column="usable" jdbcType="INTEGER" property="usable" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userid, qqlogin, wxlogin, zfblogin, tblogin, userlogin, userpwd, usable
+  </sql>
+  <select id="selectByExample" parameterType="online.wenmeng.bean.UloginExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ulogin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ulogin
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ulogin
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="online.wenmeng.bean.UloginExample">
+    delete from ulogin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="online.wenmeng.bean.Ulogin">
+    insert into ulogin (userid, qqlogin, wxlogin, 
+      zfblogin, tblogin, userlogin, 
+      userpwd, usable)
+    values (#{userid,jdbcType=INTEGER}, #{qqlogin,jdbcType=VARCHAR}, #{wxlogin,jdbcType=VARCHAR}, 
+      #{zfblogin,jdbcType=VARCHAR}, #{tblogin,jdbcType=VARCHAR}, #{userlogin,jdbcType=VARCHAR}, 
+      #{userpwd,jdbcType=VARCHAR}, #{usable,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="online.wenmeng.bean.Ulogin">
+    insert into ulogin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="qqlogin != null">
+        qqlogin,
+      </if>
+      <if test="wxlogin != null">
+        wxlogin,
+      </if>
+      <if test="zfblogin != null">
+        zfblogin,
+      </if>
+      <if test="tblogin != null">
+        tblogin,
+      </if>
+      <if test="userlogin != null">
+        userlogin,
+      </if>
+      <if test="userpwd != null">
+        userpwd,
+      </if>
+      <if test="usable != null">
+        usable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="qqlogin != null">
+        #{qqlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="wxlogin != null">
+        #{wxlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="zfblogin != null">
+        #{zfblogin,jdbcType=VARCHAR},
+      </if>
+      <if test="tblogin != null">
+        #{tblogin,jdbcType=VARCHAR},
+      </if>
+      <if test="userlogin != null">
+        #{userlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="userpwd != null">
+        #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="usable != null">
+        #{usable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="online.wenmeng.bean.UloginExample" resultType="java.lang.Long">
+    select count(*) from ulogin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ulogin
+    <set>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.qqlogin != null">
+        qqlogin = #{record.qqlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxlogin != null">
+        wxlogin = #{record.wxlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zfblogin != null">
+        zfblogin = #{record.zfblogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tblogin != null">
+        tblogin = #{record.tblogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userlogin != null">
+        userlogin = #{record.userlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpwd != null">
+        userpwd = #{record.userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usable != null">
+        usable = #{record.usable,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ulogin
+    set userid = #{record.userid,jdbcType=INTEGER},
+      qqlogin = #{record.qqlogin,jdbcType=VARCHAR},
+      wxlogin = #{record.wxlogin,jdbcType=VARCHAR},
+      zfblogin = #{record.zfblogin,jdbcType=VARCHAR},
+      tblogin = #{record.tblogin,jdbcType=VARCHAR},
+      userlogin = #{record.userlogin,jdbcType=VARCHAR},
+      userpwd = #{record.userpwd,jdbcType=VARCHAR},
+      usable = #{record.usable,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="online.wenmeng.bean.Ulogin">
+    update ulogin
+    <set>
+      <if test="qqlogin != null">
+        qqlogin = #{qqlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="wxlogin != null">
+        wxlogin = #{wxlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="zfblogin != null">
+        zfblogin = #{zfblogin,jdbcType=VARCHAR},
+      </if>
+      <if test="tblogin != null">
+        tblogin = #{tblogin,jdbcType=VARCHAR},
+      </if>
+      <if test="userlogin != null">
+        userlogin = #{userlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="userpwd != null">
+        userpwd = #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="usable != null">
+        usable = #{usable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.wenmeng.bean.Ulogin">
+    update ulogin
+    set qqlogin = #{qqlogin,jdbcType=VARCHAR},
+      wxlogin = #{wxlogin,jdbcType=VARCHAR},
+      zfblogin = #{zfblogin,jdbcType=VARCHAR},
+      tblogin = #{tblogin,jdbcType=VARCHAR},
+      userlogin = #{userlogin,jdbcType=VARCHAR},
+      userpwd = #{userpwd,jdbcType=VARCHAR},
+      usable = #{usable,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

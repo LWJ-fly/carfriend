@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+">
+    <!--springMVC的配置文件，包含网站跳转逻辑
+        只扫描过滤器
+    -->
+    <context:component-scan base-package="online.wenmeng.controller" use-default-filters="false">
+        <!--只扫描控制器即可-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 加载String的管理器转化器，每当Spring返回时进行字符编码的转换 -->
+    <bean class="online.wenmeng.utils.StringBeanPostProcessor"/>
+
+    <!-- 配置两个标准 -->
+    <!-- 将springMVC不能处理的请求给Tomcat -->
+    <mvc:default-servlet-handler/>
+    <!-- 支持SpringMVC更高级的一些功能，JSR303校验、快捷的ajax。。。映射冬天请求 -->
+    <mvc:annotation-driven/>
+
+
+    <!-- 放行静态资源, mapping匹配你请求的URI； location指定静态资源的位置(建议前后面都加/) -->
+    <mvc:resources mapping="/static/**" location="/static/" />
+
+    <!-- 配置异常处理器 -->
+    <bean id="exceptionResolver" class="online.wenmeng.exception.ExceptionResolver"/>
+
+
+    <!-- 开启基于注解的事务，使用xml配置形式的事务（必要主要的都是使用配置式） -->
+    <aop:config>
+        <!-- 配置事务增强 -->
+        <aop:aspect id="Log" ref="baseService">
+            <!-- 验证用户登录 -->
+            <aop:before method="loginCheck" pointcut="execution(* *..*.*.*(..,javax.servlet.http.HttpSession,..))"/>
+            <!-- 验证用户secret -->
+<!--            <aop:before method="secretCheck" pointcut="execution(* *..*.*.*BySecret(..,String,..))"/>-->
+        </aop:aspect>
+    </aop:config>
+</beans>

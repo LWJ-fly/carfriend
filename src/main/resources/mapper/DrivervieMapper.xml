@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.wenmeng.dao.DrivervieMapper">
+  <resultMap id="BaseResultMap" type="online.wenmeng.bean.Drivervie">
+    <id column="vieid" jdbcType="INTEGER" property="vieid" />
+    <result column="driverid" jdbcType="INTEGER" property="driverid" />
+    <result column="poolingcarid" jdbcType="INTEGER" property="poolingcarid" />
+    <result column="totalpay" jdbcType="DOUBLE" property="totalpay" />
+    <result column="vietime" jdbcType="TIMESTAMP" property="vietime" />
+    <result column="viemsg" jdbcType="VARCHAR" property="viemsg" />
+    <result column="viestatus" jdbcType="INTEGER" property="viestatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    vieid, driverid, poolingcarid, totalpay, vietime, viemsg, viestatus
+  </sql>
+  <select id="selectByExample" parameterType="online.wenmeng.bean.DrivervieExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from drivervie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from drivervie
+    where vieid = #{vieid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from drivervie
+    where vieid = #{vieid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="online.wenmeng.bean.DrivervieExample">
+    delete from drivervie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="online.wenmeng.bean.Drivervie">
+    insert into drivervie (vieid, driverid, poolingcarid, 
+      totalpay, vietime, viemsg, 
+      viestatus)
+    values (#{vieid,jdbcType=INTEGER}, #{driverid,jdbcType=INTEGER}, #{poolingcarid,jdbcType=INTEGER}, 
+      #{totalpay,jdbcType=DOUBLE}, #{vietime,jdbcType=TIMESTAMP}, #{viemsg,jdbcType=VARCHAR}, 
+      #{viestatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="online.wenmeng.bean.Drivervie">
+    insert into drivervie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vieid != null">
+        vieid,
+      </if>
+      <if test="driverid != null">
+        driverid,
+      </if>
+      <if test="poolingcarid != null">
+        poolingcarid,
+      </if>
+      <if test="totalpay != null">
+        totalpay,
+      </if>
+      <if test="vietime != null">
+        vietime,
+      </if>
+      <if test="viemsg != null">
+        viemsg,
+      </if>
+      <if test="viestatus != null">
+        viestatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vieid != null">
+        #{vieid,jdbcType=INTEGER},
+      </if>
+      <if test="driverid != null">
+        #{driverid,jdbcType=INTEGER},
+      </if>
+      <if test="poolingcarid != null">
+        #{poolingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="totalpay != null">
+        #{totalpay,jdbcType=DOUBLE},
+      </if>
+      <if test="vietime != null">
+        #{vietime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viemsg != null">
+        #{viemsg,jdbcType=VARCHAR},
+      </if>
+      <if test="viestatus != null">
+        #{viestatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="online.wenmeng.bean.DrivervieExample" resultType="java.lang.Long">
+    select count(*) from drivervie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update drivervie
+    <set>
+      <if test="record.vieid != null">
+        vieid = #{record.vieid,jdbcType=INTEGER},
+      </if>
+      <if test="record.driverid != null">
+        driverid = #{record.driverid,jdbcType=INTEGER},
+      </if>
+      <if test="record.poolingcarid != null">
+        poolingcarid = #{record.poolingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalpay != null">
+        totalpay = #{record.totalpay,jdbcType=DOUBLE},
+      </if>
+      <if test="record.vietime != null">
+        vietime = #{record.vietime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.viemsg != null">
+        viemsg = #{record.viemsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viestatus != null">
+        viestatus = #{record.viestatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update drivervie
+    set vieid = #{record.vieid,jdbcType=INTEGER},
+      driverid = #{record.driverid,jdbcType=INTEGER},
+      poolingcarid = #{record.poolingcarid,jdbcType=INTEGER},
+      totalpay = #{record.totalpay,jdbcType=DOUBLE},
+      vietime = #{record.vietime,jdbcType=TIMESTAMP},
+      viemsg = #{record.viemsg,jdbcType=VARCHAR},
+      viestatus = #{record.viestatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="online.wenmeng.bean.Drivervie">
+    update drivervie
+    <set>
+      <if test="driverid != null">
+        driverid = #{driverid,jdbcType=INTEGER},
+      </if>
+      <if test="poolingcarid != null">
+        poolingcarid = #{poolingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="totalpay != null">
+        totalpay = #{totalpay,jdbcType=DOUBLE},
+      </if>
+      <if test="vietime != null">
+        vietime = #{vietime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viemsg != null">
+        viemsg = #{viemsg,jdbcType=VARCHAR},
+      </if>
+      <if test="viestatus != null">
+        viestatus = #{viestatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where vieid = #{vieid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.wenmeng.bean.Drivervie">
+    update drivervie
+    set driverid = #{driverid,jdbcType=INTEGER},
+      poolingcarid = #{poolingcarid,jdbcType=INTEGER},
+      totalpay = #{totalpay,jdbcType=DOUBLE},
+      vietime = #{vietime,jdbcType=TIMESTAMP},
+      viemsg = #{viemsg,jdbcType=VARCHAR},
+      viestatus = #{viestatus,jdbcType=INTEGER}
+    where vieid = #{vieid,jdbcType=INTEGER}
+  </update>
+</mapper>

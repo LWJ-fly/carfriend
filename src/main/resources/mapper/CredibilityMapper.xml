@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.wenmeng.dao.CredibilityMapper">
+  <resultMap id="BaseResultMap" type="online.wenmeng.bean.Credibility">
+    <id column="credibilityid" jdbcType="INTEGER" property="credibilityid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="changestatus" jdbcType="INTEGER" property="changestatus" />
+    <result column="changenum" jdbcType="INTEGER" property="changenum" />
+    <result column="changecause" jdbcType="VARCHAR" property="changecause" />
+    <result column="aboutids" jdbcType="VARCHAR" property="aboutids" />
+    <result column="abouttime" jdbcType="TIMESTAMP" property="abouttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    credibilityid, userid, changestatus, changenum, changecause, aboutids, abouttime
+  </sql>
+  <select id="selectByExample" parameterType="online.wenmeng.bean.CredibilityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from credibility
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from credibility
+    where credibilityid = #{credibilityid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from credibility
+    where credibilityid = #{credibilityid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="online.wenmeng.bean.CredibilityExample">
+    delete from credibility
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="online.wenmeng.bean.Credibility">
+    insert into credibility (credibilityid, userid, changestatus, 
+      changenum, changecause, aboutids, 
+      abouttime)
+    values (#{credibilityid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{changestatus,jdbcType=INTEGER}, 
+      #{changenum,jdbcType=INTEGER}, #{changecause,jdbcType=VARCHAR}, #{aboutids,jdbcType=VARCHAR}, 
+      #{abouttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="online.wenmeng.bean.Credibility">
+    insert into credibility
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="credibilityid != null">
+        credibilityid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="changestatus != null">
+        changestatus,
+      </if>
+      <if test="changenum != null">
+        changenum,
+      </if>
+      <if test="changecause != null">
+        changecause,
+      </if>
+      <if test="aboutids != null">
+        aboutids,
+      </if>
+      <if test="abouttime != null">
+        abouttime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="credibilityid != null">
+        #{credibilityid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="changestatus != null">
+        #{changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="changenum != null">
+        #{changenum,jdbcType=INTEGER},
+      </if>
+      <if test="changecause != null">
+        #{changecause,jdbcType=VARCHAR},
+      </if>
+      <if test="aboutids != null">
+        #{aboutids,jdbcType=VARCHAR},
+      </if>
+      <if test="abouttime != null">
+        #{abouttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="online.wenmeng.bean.CredibilityExample" resultType="java.lang.Long">
+    select count(*) from credibility
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update credibility
+    <set>
+      <if test="record.credibilityid != null">
+        credibilityid = #{record.credibilityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.changestatus != null">
+        changestatus = #{record.changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.changenum != null">
+        changenum = #{record.changenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.changecause != null">
+        changecause = #{record.changecause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aboutids != null">
+        aboutids = #{record.aboutids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abouttime != null">
+        abouttime = #{record.abouttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update credibility
+    set credibilityid = #{record.credibilityid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      changestatus = #{record.changestatus,jdbcType=INTEGER},
+      changenum = #{record.changenum,jdbcType=INTEGER},
+      changecause = #{record.changecause,jdbcType=VARCHAR},
+      aboutids = #{record.aboutids,jdbcType=VARCHAR},
+      abouttime = #{record.abouttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="online.wenmeng.bean.Credibility">
+    update credibility
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="changestatus != null">
+        changestatus = #{changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="changenum != null">
+        changenum = #{changenum,jdbcType=INTEGER},
+      </if>
+      <if test="changecause != null">
+        changecause = #{changecause,jdbcType=VARCHAR},
+      </if>
+      <if test="aboutids != null">
+        aboutids = #{aboutids,jdbcType=VARCHAR},
+      </if>
+      <if test="abouttime != null">
+        abouttime = #{abouttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where credibilityid = #{credibilityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.wenmeng.bean.Credibility">
+    update credibility
+    set userid = #{userid,jdbcType=INTEGER},
+      changestatus = #{changestatus,jdbcType=INTEGER},
+      changenum = #{changenum,jdbcType=INTEGER},
+      changecause = #{changecause,jdbcType=VARCHAR},
+      aboutids = #{aboutids,jdbcType=VARCHAR},
+      abouttime = #{abouttime,jdbcType=TIMESTAMP}
+    where credibilityid = #{credibilityid,jdbcType=INTEGER}
+  </update>
+</mapper>

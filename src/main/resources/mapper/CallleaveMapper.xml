@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.wenmeng.dao.CallleaveMapper">
+  <resultMap id="BaseResultMap" type="online.wenmeng.bean.Callleave">
+    <id column="callleaveid" jdbcType="INTEGER" property="callleaveid" />
+    <result column="calluserid" jdbcType="INTEGER" property="calluserid" />
+    <result column="pollingcarid" jdbcType="INTEGER" property="pollingcarid" />
+    <result column="toleaveid" jdbcType="INTEGER" property="toleaveid" />
+    <result column="agreeids" jdbcType="VARCHAR" property="agreeids" />
+    <result column="disagreeids" jdbcType="VARCHAR" property="disagreeids" />
+    <result column="leavecause" jdbcType="VARCHAR" property="leavecause" />
+    <result column="calltime" jdbcType="TIMESTAMP" property="calltime" />
+    <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="callresult" jdbcType="INTEGER" property="callresult" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    callleaveid, calluserid, pollingcarid, toleaveid, agreeids, disagreeids, leavecause, 
+    calltime, endtime, callresult
+  </sql>
+  <select id="selectByExample" parameterType="online.wenmeng.bean.CallleaveExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from callleave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from callleave
+    where callleaveid = #{callleaveid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from callleave
+    where callleaveid = #{callleaveid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="online.wenmeng.bean.CallleaveExample">
+    delete from callleave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="online.wenmeng.bean.Callleave">
+    insert into callleave (callleaveid, calluserid, pollingcarid, 
+      toleaveid, agreeids, disagreeids, 
+      leavecause, calltime, endtime, 
+      callresult)
+    values (#{callleaveid,jdbcType=INTEGER}, #{calluserid,jdbcType=INTEGER}, #{pollingcarid,jdbcType=INTEGER}, 
+      #{toleaveid,jdbcType=INTEGER}, #{agreeids,jdbcType=VARCHAR}, #{disagreeids,jdbcType=VARCHAR}, 
+      #{leavecause,jdbcType=VARCHAR}, #{calltime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{callresult,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="online.wenmeng.bean.Callleave">
+    insert into callleave
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="callleaveid != null">
+        callleaveid,
+      </if>
+      <if test="calluserid != null">
+        calluserid,
+      </if>
+      <if test="pollingcarid != null">
+        pollingcarid,
+      </if>
+      <if test="toleaveid != null">
+        toleaveid,
+      </if>
+      <if test="agreeids != null">
+        agreeids,
+      </if>
+      <if test="disagreeids != null">
+        disagreeids,
+      </if>
+      <if test="leavecause != null">
+        leavecause,
+      </if>
+      <if test="calltime != null">
+        calltime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="callresult != null">
+        callresult,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="callleaveid != null">
+        #{callleaveid,jdbcType=INTEGER},
+      </if>
+      <if test="calluserid != null">
+        #{calluserid,jdbcType=INTEGER},
+      </if>
+      <if test="pollingcarid != null">
+        #{pollingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="toleaveid != null">
+        #{toleaveid,jdbcType=INTEGER},
+      </if>
+      <if test="agreeids != null">
+        #{agreeids,jdbcType=VARCHAR},
+      </if>
+      <if test="disagreeids != null">
+        #{disagreeids,jdbcType=VARCHAR},
+      </if>
+      <if test="leavecause != null">
+        #{leavecause,jdbcType=VARCHAR},
+      </if>
+      <if test="calltime != null">
+        #{calltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callresult != null">
+        #{callresult,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="online.wenmeng.bean.CallleaveExample" resultType="java.lang.Long">
+    select count(*) from callleave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update callleave
+    <set>
+      <if test="record.callleaveid != null">
+        callleaveid = #{record.callleaveid,jdbcType=INTEGER},
+      </if>
+      <if test="record.calluserid != null">
+        calluserid = #{record.calluserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pollingcarid != null">
+        pollingcarid = #{record.pollingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="record.toleaveid != null">
+        toleaveid = #{record.toleaveid,jdbcType=INTEGER},
+      </if>
+      <if test="record.agreeids != null">
+        agreeids = #{record.agreeids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disagreeids != null">
+        disagreeids = #{record.disagreeids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leavecause != null">
+        leavecause = #{record.leavecause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calltime != null">
+        calltime = #{record.calltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.callresult != null">
+        callresult = #{record.callresult,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update callleave
+    set callleaveid = #{record.callleaveid,jdbcType=INTEGER},
+      calluserid = #{record.calluserid,jdbcType=INTEGER},
+      pollingcarid = #{record.pollingcarid,jdbcType=INTEGER},
+      toleaveid = #{record.toleaveid,jdbcType=INTEGER},
+      agreeids = #{record.agreeids,jdbcType=VARCHAR},
+      disagreeids = #{record.disagreeids,jdbcType=VARCHAR},
+      leavecause = #{record.leavecause,jdbcType=VARCHAR},
+      calltime = #{record.calltime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      callresult = #{record.callresult,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="online.wenmeng.bean.Callleave">
+    update callleave
+    <set>
+      <if test="calluserid != null">
+        calluserid = #{calluserid,jdbcType=INTEGER},
+      </if>
+      <if test="pollingcarid != null">
+        pollingcarid = #{pollingcarid,jdbcType=INTEGER},
+      </if>
+      <if test="toleaveid != null">
+        toleaveid = #{toleaveid,jdbcType=INTEGER},
+      </if>
+      <if test="agreeids != null">
+        agreeids = #{agreeids,jdbcType=VARCHAR},
+      </if>
+      <if test="disagreeids != null">
+        disagreeids = #{disagreeids,jdbcType=VARCHAR},
+      </if>
+      <if test="leavecause != null">
+        leavecause = #{leavecause,jdbcType=VARCHAR},
+      </if>
+      <if test="calltime != null">
+        calltime = #{calltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callresult != null">
+        callresult = #{callresult,jdbcType=INTEGER},
+      </if>
+    </set>
+    where callleaveid = #{callleaveid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.wenmeng.bean.Callleave">
+    update callleave
+    set calluserid = #{calluserid,jdbcType=INTEGER},
+      pollingcarid = #{pollingcarid,jdbcType=INTEGER},
+      toleaveid = #{toleaveid,jdbcType=INTEGER},
+      agreeids = #{agreeids,jdbcType=VARCHAR},
+      disagreeids = #{disagreeids,jdbcType=VARCHAR},
+      leavecause = #{leavecause,jdbcType=VARCHAR},
+      calltime = #{calltime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      callresult = #{callresult,jdbcType=INTEGER}
+    where callleaveid = #{callleaveid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.wenmeng.dao.DrivercarMapper">
+  <resultMap id="BaseResultMap" type="online.wenmeng.bean.Drivercar">
+    <id column="driverid" jdbcType="INTEGER" property="driverid" />
+    <result column="ordernum" jdbcType="INTEGER" property="ordernum" />
+    <result column="carlicence" jdbcType="VARCHAR" property="carlicence" />
+    <result column="carcolor" jdbcType="VARCHAR" property="carcolor" />
+    <result column="carseat" jdbcType="INTEGER" property="carseat" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    driverid, ordernum, carlicence, carcolor, carseat
+  </sql>
+  <select id="selectByExample" parameterType="online.wenmeng.bean.DrivercarExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from drivercar
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from drivercar
+    where driverid = #{driverid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from drivercar
+    where driverid = #{driverid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="online.wenmeng.bean.DrivercarExample">
+    delete from drivercar
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="online.wenmeng.bean.Drivercar">
+    insert into drivercar (driverid, ordernum, carlicence, 
+      carcolor, carseat)
+    values (#{driverid,jdbcType=INTEGER}, #{ordernum,jdbcType=INTEGER}, #{carlicence,jdbcType=VARCHAR}, 
+      #{carcolor,jdbcType=VARCHAR}, #{carseat,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="online.wenmeng.bean.Drivercar">
+    insert into drivercar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="driverid != null">
+        driverid,
+      </if>
+      <if test="ordernum != null">
+        ordernum,
+      </if>
+      <if test="carlicence != null">
+        carlicence,
+      </if>
+      <if test="carcolor != null">
+        carcolor,
+      </if>
+      <if test="carseat != null">
+        carseat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="driverid != null">
+        #{driverid,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null">
+        #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="carlicence != null">
+        #{carlicence,jdbcType=VARCHAR},
+      </if>
+      <if test="carcolor != null">
+        #{carcolor,jdbcType=VARCHAR},
+      </if>
+      <if test="carseat != null">
+        #{carseat,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="online.wenmeng.bean.DrivercarExample" resultType="java.lang.Long">
+    select count(*) from drivercar
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update drivercar
+    <set>
+      <if test="record.driverid != null">
+        driverid = #{record.driverid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordernum != null">
+        ordernum = #{record.ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="record.carlicence != null">
+        carlicence = #{record.carlicence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carcolor != null">
+        carcolor = #{record.carcolor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carseat != null">
+        carseat = #{record.carseat,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update drivercar
+    set driverid = #{record.driverid,jdbcType=INTEGER},
+      ordernum = #{record.ordernum,jdbcType=INTEGER},
+      carlicence = #{record.carlicence,jdbcType=VARCHAR},
+      carcolor = #{record.carcolor,jdbcType=VARCHAR},
+      carseat = #{record.carseat,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="online.wenmeng.bean.Drivercar">
+    update drivercar
+    <set>
+      <if test="ordernum != null">
+        ordernum = #{ordernum,jdbcType=INTEGER},
+      </if>
+      <if test="carlicence != null">
+        carlicence = #{carlicence,jdbcType=VARCHAR},
+      </if>
+      <if test="carcolor != null">
+        carcolor = #{carcolor,jdbcType=VARCHAR},
+      </if>
+      <if test="carseat != null">
+        carseat = #{carseat,jdbcType=INTEGER},
+      </if>
+    </set>
+    where driverid = #{driverid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.wenmeng.bean.Drivercar">
+    update drivercar
+    set ordernum = #{ordernum,jdbcType=INTEGER},
+      carlicence = #{carlicence,jdbcType=VARCHAR},
+      carcolor = #{carcolor,jdbcType=VARCHAR},
+      carseat = #{carseat,jdbcType=INTEGER}
+    where driverid = #{driverid,jdbcType=INTEGER}
+  </update>
+</mapper>

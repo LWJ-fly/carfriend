@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.wenmeng.dao.MaycostMapper">
+  <resultMap id="BaseResultMap" type="online.wenmeng.bean.Maycost">
+    <id column="goplace" jdbcType="VARCHAR" property="goplace" />
+    <id column="readyplace" jdbcType="VARCHAR" property="readyplace" />
+    <result column="maypay" jdbcType="DOUBLE" property="maypay" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    goplace, readyplace, maypay
+  </sql>
+  <select id="selectByExample" parameterType="online.wenmeng.bean.MaycostExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from maycost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="online.wenmeng.bean.MaycostKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from maycost
+    where goplace = #{goplace,jdbcType=VARCHAR}
+      and readyplace = #{readyplace,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="online.wenmeng.bean.MaycostKey">
+    delete from maycost
+    where goplace = #{goplace,jdbcType=VARCHAR}
+      and readyplace = #{readyplace,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="online.wenmeng.bean.MaycostExample">
+    delete from maycost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="online.wenmeng.bean.Maycost">
+    insert into maycost (goplace, readyplace, maypay
+      )
+    values (#{goplace,jdbcType=VARCHAR}, #{readyplace,jdbcType=VARCHAR}, #{maypay,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="online.wenmeng.bean.Maycost">
+    insert into maycost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goplace != null">
+        goplace,
+      </if>
+      <if test="readyplace != null">
+        readyplace,
+      </if>
+      <if test="maypay != null">
+        maypay,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goplace != null">
+        #{goplace,jdbcType=VARCHAR},
+      </if>
+      <if test="readyplace != null">
+        #{readyplace,jdbcType=VARCHAR},
+      </if>
+      <if test="maypay != null">
+        #{maypay,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="online.wenmeng.bean.MaycostExample" resultType="java.lang.Long">
+    select count(*) from maycost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update maycost
+    <set>
+      <if test="record.goplace != null">
+        goplace = #{record.goplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readyplace != null">
+        readyplace = #{record.readyplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maypay != null">
+        maypay = #{record.maypay,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update maycost
+    set goplace = #{record.goplace,jdbcType=VARCHAR},
+      readyplace = #{record.readyplace,jdbcType=VARCHAR},
+      maypay = #{record.maypay,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="online.wenmeng.bean.Maycost">
+    update maycost
+    <set>
+      <if test="maypay != null">
+        maypay = #{maypay,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where goplace = #{goplace,jdbcType=VARCHAR}
+      and readyplace = #{readyplace,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="online.wenmeng.bean.Maycost">
+    update maycost
+    set maypay = #{maypay,jdbcType=DOUBLE}
+    where goplace = #{goplace,jdbcType=VARCHAR}
+      and readyplace = #{readyplace,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -11,6 +11,13 @@ import java.util.Map;
  */
 public class Config {
 
+    //存储用户信息消息,
+    public static Map<Integer,Object> manInfo = new HashMap<>();
+    /**
+     * 定义是否收费
+     * 定义收费金额
+     */
+
     //接收意见反馈的邮箱
     public static String ReceiveMailNum = "15518064076@163.com";
     //保存服务信息

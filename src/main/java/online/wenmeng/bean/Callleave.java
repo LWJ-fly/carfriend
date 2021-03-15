@@ -23,6 +23,22 @@ public class Callleave {
 
     private Integer callresult;
 
+    public Callleave() {
+    }
+
+    public Callleave(Integer callleaveid, Integer calluserid, Integer pollingcarid, Integer toleaveid, String agreeids, String disagreeids, String leavecause, Date calltime, Date endtime, Integer callresult) {
+        this.callleaveid = callleaveid;
+        this.calluserid = calluserid;
+        this.pollingcarid = pollingcarid;
+        this.toleaveid = toleaveid;
+        this.agreeids = agreeids;
+        this.disagreeids = disagreeids;
+        this.leavecause = leavecause;
+        this.calltime = calltime;
+        this.endtime = endtime;
+        this.callresult = callresult;
+    }
+
     public Integer getCallleaveid() {
         return callleaveid;
     }

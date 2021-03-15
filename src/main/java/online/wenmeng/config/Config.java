@@ -1,6 +1,7 @@
 package online.wenmeng.config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,8 +12,8 @@ import java.util.Map;
  */
 public class Config {
 
-    //存储用户信息消息,
-    public static Map<Integer,Object> manInfo = new HashMap<>();
+    //存储用户请出他人的信息 Map<用户ID，List<拼车ID>>
+    public static Map<Integer, List<Integer>> callLeaveMap = new HashMap<>();
     /**
      * 定义是否收费
      * 定义收费金额

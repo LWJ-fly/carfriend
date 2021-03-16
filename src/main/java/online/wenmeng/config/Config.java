@@ -25,6 +25,9 @@ public class Config {
     public static Map<Integer,Integer> sendEmailCountMap = new HashMap<>();
     //控制每个用户提交意见的次数
     public static int numberOfFeedback = 3;
+    //控制请出他人的数量，团队中至少是多少人
+    public static int MinNumberOfLeaveOther = 2;
+
     /**
      * 数据库使用
      */
@@ -47,14 +50,20 @@ uinacarinfo
     public static int uinacarinfo_instatus_leave = 4;
     public static int uinacarinfo_instatus_out = 5;
     public static int uinacarinfo_instatus_fail = 6;
-/*
-    outinfo:
-        1 qqnum
-        2 wxnum
-        4 phone
-        8 email
-        16 tallemail(邮件通知)
-*/
+    /*
+    callleave
+        callresult 最终结果
+     */
+    public static int callleave_instatus_fail = 0;
+    public static int callleave_instatus_Success = 1;
+    /*
+        outinfo:
+            1 qqnum
+            2 wxnum
+            4 phone
+            8 email
+            16 tallemail(邮件通知)
+    */
     public static int uinacarinfo_outinfo_qqnum = 1;
     public static int uinacarinfo_outinfo_wxnum = 2;
     public static int uinacarinfo_outinfo_phone = 4;
@@ -64,6 +73,7 @@ uinacarinfo
 拼车成功留言
  */
     public static String okTallEmail = "拼车完成，请尽快联系车友，详情查看：https://wenmeng.online/carfriend";
+    public static String letOutTallEmail = "队友发起请出他人，请尽快处理，详情查看：https://wenmeng.online/carfriend";
     public static String Logo = "闻梦家园";
 /*
 ulogin

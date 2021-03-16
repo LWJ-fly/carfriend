@@ -1,12 +1,11 @@
 package online.wenmeng.controller;
 
-import online.wenmeng.dao.CallleaveMapper;
 import online.wenmeng.exception.ParameterErrorException;
 import online.wenmeng.service.CallLeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -17,7 +16,7 @@ import java.util.Map;
  * @Descrintion: 发起请出其他人的类
  * @version: 1.0
  */
-@Service
+@RestController
 public class CallLeaveController {
 
     @Autowired
@@ -34,7 +33,7 @@ public class CallLeaveController {
     }
 
     /**
-     * 发起请出队友，请出队友的ID
+     * 发起请出队友，请出队友的ID，团队中只有两个人的话不允许请出他人
      * @param carId 此次拼车的ID
      * @param outId 被请出去人的ID
      * @return 返回
@@ -50,8 +49,8 @@ public class CallLeaveController {
      * @return 返回发起请出的信息
      */
     @RequestMapping("getCallOut/{carId}")
-    public Map<String,Object> getCallOut(int carId){
-
+    public Map<String,Object> getCallOut(HttpSession session,@PathVariable("carId") int carId) throws ParameterErrorException {
+        return callLeaveService.getCallOut(session,carId);
     }
 
 
@@ -61,8 +60,20 @@ public class CallLeaveController {
      * @return 返回发起请出的信息
      */
     @RequestMapping("getCallOutDec/{callleaveid}")
-    public Map<String,Object> getCallOutDec(int callleaveid){
+    public Map<String,Object> getCallOutDec(HttpSession session,@PathVariable("callleaveid") int callleaveid){
+        return callLeaveService.getCallOutDec(callleaveid);
+    }
 
+    /**
+     * 处理拼车信息
+     *      队友同意 、 拒绝 请出其他人，两个人的话不允许请出他人，建议自己退出
+     * @param callleaveid 请出他人表中的ID
+     * @param deal 处理结果，true/false
+     * @return
+     */
+    @RequestMapping("dealCallOut/{callleaveid}/{deal}")
+    public Map<String,Object> dealCallOut(HttpSession session,@PathVariable("callleaveid") int callleaveid,@PathVariable("deal") Boolean deal) throws ParameterErrorException {
+        return callLeaveService.dealCallOut(session,callleaveid,deal);
     }
 
 

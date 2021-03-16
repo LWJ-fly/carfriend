@@ -2,6 +2,7 @@ package online.wenmeng.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import online.wenmeng.bean.Callleave;
 import online.wenmeng.bean.Carfriend;
 import online.wenmeng.config.Config;
 import org.apache.ibatis.annotations.Case;
@@ -48,7 +49,7 @@ public class MyUtils {
      * state 状态(success)、action动作、msg消息、data数据
      * @return
      */
-    public static Map<String,Object> getNewMap(String state,String action,String msg,Object data){
+    public static Map<String,Object> getNewMap(String state,Object action,Object msg,Object data){
         HashMap<String, Object> map = new HashMap<>();
         map.put(Config.STATE,state);
         map.put(Config.ACTION,action);
@@ -300,6 +301,41 @@ public class MyUtils {
             status-=Config.uinacarinfo_outinfo_qqnum;
         }
          return false;
+    }
+
+    public static List<Integer> getUsersByCarfriend(Carfriend carfriend){
+        List<Integer> list = new ArrayList<>();
+        if (carfriend!=null&&carfriend.getPoolinguserid()==null){
+            list.add(carfriend.getPoolinguserid());
+            if (carfriend.getUserids()!=null){
+                String[] split = carfriend.getUserids().split(Config.splitUsers);
+                for (String str:split){
+                    list.add(TransitionUtil.transitionType(str.trim(),Integer.class));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static List<Integer> getUsersByCallleave(Callleave callleave){
+        List<Integer> list = new ArrayList<>();
+        if (callleave!=null&&callleave.getCalluserid()==null){
+            list.add(callleave.getCalluserid());
+            list.add(callleave.getToleaveid());
+            if (callleave.getAgreeids()!=null){
+                String[] split = callleave.getAgreeids().split(Config.splitUsers);
+                for (String str:split){
+                    list.add(TransitionUtil.transitionType(str.trim(),Integer.class));
+                }
+            }
+            if (callleave.getDisagreeids()!=null){
+                String[] split = callleave.getDisagreeids().split(Config.splitUsers);
+                for (String str:split){
+                    list.add(TransitionUtil.transitionType(str.trim(),Integer.class));
+                }
+            }
+        }
+        return list;
     }
 
 }

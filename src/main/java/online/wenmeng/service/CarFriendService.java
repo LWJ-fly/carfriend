@@ -109,8 +109,8 @@ public class CarFriendService {
             //首先默认自己全部信息
             Uinfo uinfo = uinfoMapper.selectByPrimaryKey(openId);
             //将自己信息进行相应的更改
-            Uinacarinfo uinacarinfo = new Uinacarinfo((String)userLoginInfo.get(Config.NickName),(String) userLoginInfo.get(Config.ChatHead),"男".equals(userLoginInfo.get(Config.Gender))?1:0,
-                    null,new Date(),null,Config.uinacarinfo_instatus_join,16,uinfo.getQqnum(),uinfo.getWxnum(),uinfo.getPhone(),uinfo.getEmail());
+            Uinacarinfo uinacarinfo = new Uinacarinfo((String)userLoginInfo.get(Config.NickName),(String) userLoginInfo.get(Config.ChatHead),uinfo.getGender(),
+                    null,new Date(),null,Config.uinacarinfo_instatus_join,16,uinfo.getQqnum(),uinfo.getWxnum(),uinfo.getPhone(),uinfo.getEmail(),uinfo.getCredibility());
             uinacarinfo.setPoolingcarid(poolingcarid);
             uinacarinfo.setUserid(openId);
             if (uinacarinfoMapper.insert(uinacarinfo)>0){
@@ -275,9 +275,9 @@ public class CarFriendService {
             }
         }
         if (!carfriend.getPoolinguserid().equals(openId)&&!carfriend.getUserids().contains(""+openId)){//如果不是拼车内的成员,必要信息进行打码处理
-            return MyUtils.getNewMap(Config.SUCCESS,null,carfriend.toString(),hideUinaCarInfo(uinacarinfoList));
+            return MyUtils.getNewMap(Config.SUCCESS,false,carfriend,hideUinaCarInfo(uinacarinfoList));
         }
-        return MyUtils.getNewMap(Config.SUCCESS,null,carfriend.toString(),uinacarinfoList);
+        return MyUtils.getNewMap(Config.SUCCESS,true,carfriend,uinacarinfoList);
     }
 
     public Map<String, Object> quitCarFriend(HttpSession session, int carId) throws ParameterErrorException {

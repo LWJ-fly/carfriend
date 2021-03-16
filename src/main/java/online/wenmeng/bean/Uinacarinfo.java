@@ -27,10 +27,12 @@ public class Uinacarinfo extends UinacarinfoKey {
 
     private String email;
 
+    private Integer credibility;
+
     public Uinacarinfo() {
     }
 
-    public Uinacarinfo(String nickname, String chathead, Integer gender, String incarmsg, Date jointime, Date endtime, Integer instatus, Integer outinfo, String qqnum, String wxnum, Long phone, String email) {
+    public Uinacarinfo(String nickname, String chathead, Integer gender, String incarmsg, Date jointime, Date endtime, Integer instatus, Integer outinfo, String qqnum, String wxnum, Long phone, String email, Integer credibility) {
         this.nickname = nickname;
         this.chathead = chathead;
         this.gender = gender;
@@ -43,6 +45,7 @@ public class Uinacarinfo extends UinacarinfoKey {
         this.wxnum = wxnum;
         this.phone = phone;
         this.email = email;
+        this.credibility = credibility;
     }
 
     public String getNickname() {
@@ -139,5 +142,13 @@ public class Uinacarinfo extends UinacarinfoKey {
 
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
+    }
+
+    public Integer getCredibility() {
+        return credibility;
+    }
+
+    public void setCredibility(Integer credibility) {
+        this.credibility = credibility;
     }
 }

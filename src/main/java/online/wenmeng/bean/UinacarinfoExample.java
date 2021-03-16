@@ -1004,6 +1004,66 @@ public class UinacarinfoExample {
             addCriterion("email not between", value1, value2, "email");
             return (Criteria) this;
         }
+
+        public Criteria andCredibilityIsNull() {
+            addCriterion("credibility is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityIsNotNull() {
+            addCriterion("credibility is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityEqualTo(Integer value) {
+            addCriterion("credibility =", value, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityNotEqualTo(Integer value) {
+            addCriterion("credibility <>", value, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityGreaterThan(Integer value) {
+            addCriterion("credibility >", value, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityGreaterThanOrEqualTo(Integer value) {
+            addCriterion("credibility >=", value, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityLessThan(Integer value) {
+            addCriterion("credibility <", value, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityLessThanOrEqualTo(Integer value) {
+            addCriterion("credibility <=", value, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityIn(List<Integer> values) {
+            addCriterion("credibility in", values, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityNotIn(List<Integer> values) {
+            addCriterion("credibility not in", values, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityBetween(Integer value1, Integer value2) {
+            addCriterion("credibility between", value1, value2, "credibility");
+            return (Criteria) this;
+        }
+
+        public Criteria andCredibilityNotBetween(Integer value1, Integer value2) {
+            addCriterion("credibility not between", value1, value2, "credibility");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

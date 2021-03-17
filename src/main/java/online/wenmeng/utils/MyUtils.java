@@ -23,12 +23,13 @@ import java.util.*;
  */
 public class MyUtils {
 
-    public static Map<String,Object> createUserLoginInfo(int openid,String nickName,String gender,String chatHead){
+    public static Map<String,Object> createUserLoginInfo(int openid,String nickName,String gender,String chatHead,int usable){
         HashMap<String, Object> map = new HashMap<>();
         map.put(Config.Openid,openid);
         map.put(Config.NickName, nickName);
         map.put(Config.Gender, gender);
         map.put(Config.ChatHead, chatHead);
+        map.put(Config.Usable, usable);
         return map;
     }
 

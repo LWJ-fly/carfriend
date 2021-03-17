@@ -1,5 +1,7 @@
 package online.wenmeng.controller;
 
+import online.wenmeng.bean.Drivervie;
+import online.wenmeng.exception.ParameterErrorException;
 import online.wenmeng.service.DriverVieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,12 +32,12 @@ public class DriverVieController {
     /**
      * 司机申请载客的方法
      * @param session 系统自动获取
-     * @param poolingcarid 申请载客的拼车ID，拼车的ID
+     * @param drivervie 申请载客的拼车ID，拼车的ID,司机的报价，抢单的留言，这三个，载客ID必须，另外不必
      * @return 返回申请数据
      */
     @RequestMapping("applyPull/{poolingcarid}")
-    public Map<String,Object> applyPull(HttpSession session,Integer poolingcarid){
-        return driverVieService.applyPull(session,poolingcarid);
+    public Map<String,Object> applyPull(HttpSession session, Drivervie drivervie ) throws ParameterErrorException {
+        return driverVieService.applyPull(session,drivervie);
     }
 
     /**
@@ -44,7 +46,7 @@ public class DriverVieController {
      * @return 返回表中的变更状态
      */
     @RequestMapping("quitPull/{vieid}")
-    public Map<String,Object> quitPull(HttpSession session,Integer vieid){
+    public Map<String,Object> quitPull(HttpSession session,Integer vieid) throws ParameterErrorException {
         return driverVieService.quitPull(session,vieid);
     }
 
@@ -55,7 +57,7 @@ public class DriverVieController {
      * @return
      */
     @RequestMapping("findAllPull")
-    public Map<String,Object> findAllPull(HttpSession session){
+    public Map<String,Object> findAllPull(HttpSession session) throws ParameterErrorException {
         return driverVieService.findAllPull(session);
     }
 
@@ -65,7 +67,7 @@ public class DriverVieController {
      * @return
      */
     @RequestMapping("findApplyPull")
-    public Map<String,Object> findApplyPull(HttpSession session){
+    public Map<String,Object> findApplyPull(HttpSession session) throws ParameterErrorException {
         return driverVieService.findApplyPull(session);
     }
 
@@ -76,7 +78,7 @@ public class DriverVieController {
      * @return
      */
     @RequestMapping("findAgreePull")
-    public Map<String,Object> findAgreePull(HttpSession session){
+    public Map<String,Object> findAgreePull(HttpSession session) throws ParameterErrorException {
         return driverVieService.findAgreePull(session);
     }
 
@@ -87,7 +89,7 @@ public class DriverVieController {
      * @return
      */
     @RequestMapping("findFilePull")
-    public Map<String,Object> findFilePull(HttpSession session){
+    public Map<String,Object> findFilePull(HttpSession session) throws ParameterErrorException {
         return driverVieService.findFilePull(session);
     }
 
@@ -99,7 +101,7 @@ public class DriverVieController {
      * @return
      */
     @RequestMapping("findPullInfo/{poolingcarid}")
-    public Map<String,Object> findPullInfo(HttpSession session,Integer poolingcarid){
+    public Map<String,Object> findPullInfo(HttpSession session,Integer poolingcarid) throws ParameterErrorException {
         return driverVieService.findPullInfo(session,poolingcarid);
     }
 
@@ -110,7 +112,7 @@ public class DriverVieController {
      * @return
      */
     @RequestMapping("dealApplyPull/{vieid}/{reply}")
-    public Map<String,Object> dealApplyPull(HttpSession session,Integer vieid, Boolean reply){
+    public Map<String,Object> dealApplyPull(HttpSession session,Integer vieid, Boolean reply) throws ParameterErrorException {
         return driverVieService.dealApplyPull(session,vieid,reply);
     }
 

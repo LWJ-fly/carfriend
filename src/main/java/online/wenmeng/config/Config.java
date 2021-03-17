@@ -92,6 +92,13 @@ ulogin
     public static int ulogin_usable_driver = 2;
     public static int ulogin_usable_admin = 3;
     public static int ulogin_usable_root = 4;
+    /**
+     * 司机抢单状态
+     */
+    public static int drivervie_viestatus_ing = 0;
+    public static int drivervie_viestatus_false = 1;
+    public static int drivervie_viestatus_quit = 2;
+    public static int drivervie_viestatus_success = 3;
 /*
 carfriend
     poolingstatus:
@@ -158,6 +165,8 @@ carfriend
     public static String Gender = "gender";
     //用户头像信息
     public static String ChatHead = "chatHead";
+    //用户头像信息
+    public static String Usable = "usable";
     //用户登录时保存在session中的登录的QQ信息
     public static String userInfoInRun = "userInfoInRun";
     //程序中对日期的格式化

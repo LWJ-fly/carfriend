@@ -17,6 +17,19 @@ public class Drivervie {
 
     private Integer viestatus;
 
+    public Drivervie() {
+    }
+
+    public Drivervie(Integer vieid, Integer driverid, Integer poolingcarid, Double totalpay, Date vietime, String viemsg, Integer viestatus) {
+        this.vieid = vieid;
+        this.driverid = driverid;
+        this.poolingcarid = poolingcarid;
+        this.totalpay = totalpay;
+        this.vietime = vietime;
+        this.viemsg = viemsg;
+        this.viestatus = viestatus;
+    }
+
     public Integer getVieid() {
         return vieid;
     }

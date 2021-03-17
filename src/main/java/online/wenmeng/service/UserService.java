@@ -60,14 +60,19 @@ public class UserService {
                             //将基本信息添加到用户
                             Boolean aBoolean = addUinfo(insertUlogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender").equals("男") ? 1 : 0);
                             if (aBoolean){
-                                Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(insertUlogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"));
+                                Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(insertUlogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"),Config.ulogin_usable_user);
                                 session.setAttribute(Config.userInfoInRun,userLoginInfo);
                                 return  MyUtils.getNewMap(Config.SUCCESS,Config.INDEX,null,userLoginInfo);
                             }
                         }
                     }else {
-                        if (ulogin.getUsable()>0){
-                            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(ulogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"));
+                        if (ulogin.getUsable()!=Config.ulogin_usable_unable){
+                            Uinfo uinfo = uinfoMapper.selectByPrimaryKey(ulogin.getUserid());
+                            if (qqInfo.getString("nickname")!=null&&!qqInfo.getString("nickname").equals(uinfo.getNickname())){
+                                uinfo.setNickname(qqInfo.getString("nickname"));
+                                uinfoMapper.updateByPrimaryKey(uinfo);
+                            }
+                            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(ulogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"),ulogin.getUsable());
                             session.setAttribute(Config.userInfoInRun,userLoginInfo);
                             return  MyUtils.getNewMap(Config.SUCCESS,Config.INDEX,null,userLoginInfo);
                         }else {
@@ -97,7 +102,7 @@ public class UserService {
         }
         ulogin.setUserid(openId);
         ulogin.setQqlogin(qqOpenId);
-        ulogin.setUsable(1);
+        ulogin.setUsable(Config.ulogin_usable_user);
         if (uloginMapper.insert(ulogin)>0){
             return ulogin;
         }

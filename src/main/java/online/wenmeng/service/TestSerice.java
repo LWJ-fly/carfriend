@@ -28,7 +28,7 @@ public class TestSerice {
     public Map<String, Object> setLogininfo(HttpSession session, int openid) {
         Uinfo uinfo = uinfoMapper.selectByPrimaryKey(openid);
         if (uinfo!=null){
-            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(openid, uinfo.getNickname(),uinfo.getGender()==1?"男":"女", null);
+            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(openid, uinfo.getNickname(),uinfo.getGender()==1?"男":"女", null,1);
             session.setAttribute(Config.userInfoInRun,userLoginInfo);
             return  MyUtils.getNewMap(Config.SUCCESS,Config.INDEX,uinfo,userLoginInfo);
         }

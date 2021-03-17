@@ -42,6 +42,8 @@ public class ExceptionResolver implements HandlerExceptionResolver {
         }else if (e instanceof ParameterErrorException){
             modelAndView.addObject(Config.ACTION,Config.RETRY);
             modelAndView.addObject(Config.MSG,"参数错误");
+        }else if (e instanceof NoMoneyException){
+            modelAndView.addObject(Config.MSG,"Insufficient account balance, please recharge and try again");
         }else if (e instanceof ServerException){
             SentEmail.sentEmail("15518064076@163.com","error:"+e,"服务器错误");
             modelAndView.addObject(Config.MSG,"Server error, please contact administrator");

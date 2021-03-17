@@ -18,6 +18,8 @@ public class Config {
      * 定义是否收费
      * 定义收费金额
      */
+    public static Boolean mastPayBeforeJoin = false;
+    public static double haveMoneyToJoin = 5;
 
     //接收意见反馈的邮箱
     public static String ReceiveMailNum = "15518064076@163.com";
@@ -72,6 +74,7 @@ uinacarinfo
 /*
 拼车成功留言
  */
+    public static String TimeOutEmail = "拼车出发时间将近到达，请尽快联系车友出发，详情查看：https://wenmeng.online/carfriend";
     public static String okTallEmail = "拼车完成，请尽快联系车友，详情查看：https://wenmeng.online/carfriend";
     public static String letOutTallEmail = "队友发起请出他人，请尽快处理，详情查看：https://wenmeng.online/carfriend";
     public static String Logo = "闻梦家园";

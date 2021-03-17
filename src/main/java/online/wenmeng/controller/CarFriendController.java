@@ -37,6 +37,15 @@ public class CarFriendController {
     }
 
     /**
+     * 查询所有的拼车完成的拼车信息，只返回条数后台进行设置
+     * @return
+     */
+    @RequestMapping("findAllOkCarFriend")
+    public Map<String,Object> findAllOkCarFriend(){
+        return carFriendServices.findAllOkCarFriend();
+    }
+
+    /**
      * 通过出发地搜索拼车信息————精确查询
      * @return
      */
@@ -94,6 +103,8 @@ public class CarFriendController {
     public Map<String,Object> findCarFriendByLikeTrip(@PathVariable("origin") String origin,@PathVariable("bourn") String bourn){
         return carFriendServices.findCarFriendByLikeTrip(origin,bourn);
     }
+
+
 
     /**
      * 发起拼车 填写发起拼车信息

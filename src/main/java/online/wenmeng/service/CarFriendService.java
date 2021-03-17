@@ -46,6 +46,12 @@ public class CarFriendService {
         return MyUtils.getNewMap(Config.SUCCESS,null,null,carfriendMapper.selectByExample(carfriendExample));
     }
 
+    public Map<String, Object> findAllOkCarFriend() {
+        CarfriendExample carfriendExample = new CarfriendExample();
+        carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_end);
+        return MyUtils.getNewMap(Config.SUCCESS,null,null,carfriendMapper.selectByExample(carfriendExample));
+    }
+
     public Map<String, Object> findCarFriendByOrigin(String origin) {
         CarfriendExample carfriendExample = new CarfriendExample();
         carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing).andReadyplaceEqualTo(origin);
@@ -344,4 +350,5 @@ public class CarFriendService {
         }
         throw new ParameterErrorException();
     }
+
 }

@@ -1,5 +1,6 @@
 package online.wenmeng.controller;
 
+import online.wenmeng.exception.ParameterErrorException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -32,7 +33,13 @@ public class BaseController{
                         return;
                     } catch (ParseException e) {}
                 }
-                setValue(new Date(Long.parseLong(text)));
+                long time;
+                try {
+                    time = Long.parseLong(text);
+                } catch (Exception e){
+                    throw new RuntimeException("The time type is incorrectly formatted");
+                }
+                setValue(new Date(time));
             }
         });
     }

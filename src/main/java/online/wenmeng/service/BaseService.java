@@ -53,6 +53,7 @@ public class BaseService {
     static {
         String[] srr = {
                 "exit",
+                "setLogininfo",
                 "login",
                 "QQLogin"
         };

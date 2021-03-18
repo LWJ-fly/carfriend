@@ -70,6 +70,11 @@ public class UInfoService {
             uinfo1.setAge(uinfo.getAge());
         }
 
+        if(uinfo.getSignature()!=null){
+            i++;
+            uinfo1.setSignature(uinfo.getSignature());
+        }
+
         if (i==0){
             return MyUtils.getNewMap(Config.ERROR,Config.RETRY,"No update or parameter validation failed",null);
         }

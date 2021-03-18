@@ -11,13 +11,18 @@ import online.wenmeng.utils.MyUtils;
 import online.wenmeng.utils.SentEmail;
 import online.wenmeng.utils.VerifyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.beans.PropertyEditorSupport;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,13 +49,14 @@ public class BaseService {
      * 放行的方法，不进行校验
      */
     private static List releaseMethod = new ArrayList();
+
     static {
         String[] srr = {
                 "exit",
                 "login",
                 "QQLogin"
         };
-        for (String s:srr){
+        for (String s : srr) {
             releaseMethod.add(s);
         }
     }
@@ -62,10 +68,10 @@ public class BaseService {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String methodName = request.getServletPath();
         methodName = methodName.split("/")[1];
-        if (!releaseMethod.contains(methodName)){
+        if (!releaseMethod.contains(methodName)) {
             HttpSession session = request.getSession();
             Object sessionAttribute = session.getAttribute(Config.userInfoInRun);
-            if (sessionAttribute==null)
+            if (sessionAttribute == null)
                 throw new LoginException();
         }
     }
@@ -75,14 +81,14 @@ public class BaseService {
      */
     public void joinOrCreatCheck() throws NoMoneyException {
         //是否要收费，如果要收费就进行处理
-        if (Config.mastPayBeforeJoin){
+        if (Config.mastPayBeforeJoin) {
             //获取session
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             HttpSession session = request.getSession();
             //获取用户ID
             Integer userId = MyUtils.getOpenIdBySession(session);
             Uinfo uinfo = uinfoMapper.selectByPrimaryKey(userId);
-            if(Config.haveMoneyToJoin>uinfo.getWallet()){
+            if (Config.haveMoneyToJoin > uinfo.getWallet()) {
                 throw new NoMoneyException();
             }
         }
@@ -93,7 +99,7 @@ public class BaseService {
      * 每天0点进行必要的刷新
      */
     @Scheduled(cron = "0 0 0 * * ?")
-    public void permissionsTask(){
+    public void permissionsTask() {
         //每日0点清空上日发送邮件的用户
         Config.sendEmailCountMap.clear();
     }
@@ -102,13 +108,13 @@ public class BaseService {
      * 每五分钟执行一次，检查是否有拼车到时间
      */
     @Scheduled(cron = "0 0/5 * * * ? ")
-    public void checkTimeOut2CarFriend(){
+    public void checkTimeOut2CarFriend() {
         //查询所有数据库，检查是否有到时间的拼车
         CarfriendExample carfriendExample = new CarfriendExample();
         Date date = new Date();
-        carfriendExample.createCriteria().andGotimeBetween(date,new Date(date.getTime()+305000)).andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing);
+        carfriendExample.createCriteria().andGotimeBetween(date, new Date(date.getTime() + 305000)).andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing);
         List<Carfriend> carfriends = carfriendMapper.selectByExample(carfriendExample);
-        for (Carfriend carfriend:carfriends) {
+        for (Carfriend carfriend : carfriends) {
             //获取所有的拼车用户
             sendEmail(carfriend.getPoolingcarid());
             changeStatus2CarFriend(carfriend);
@@ -118,26 +124,48 @@ public class BaseService {
     /**
      * 更改拼车状态，将拼车更改为超时
      */
-    public void changeStatus2CarFriend(Carfriend carfriend){
+    public void changeStatus2CarFriend(Carfriend carfriend) {
         carfriend.setEndtime(new Date());
         carfriend.setPoolingstatus(Config.carfriend_poolingstatus_timeoOut);
         carfriendMapper.updateByPrimaryKeySelective(carfriend);
     }
 
-    public void sendEmail(Integer carId){
+    public void sendEmail(Integer carId) {
         UinacarinfoExample uinacarinfoExample = new UinacarinfoExample();
         uinacarinfoExample.createCriteria().andPoolingcaridEqualTo(carId);
         List<Uinacarinfo> uinacarinfoList = uinacarinfoMapper.selectByExample(uinacarinfoExample);
-        for(Uinacarinfo uinacarinfo:uinacarinfoList){
+        for (Uinacarinfo uinacarinfo : uinacarinfoList) {
             //更改所有用户的状态信息
             uinacarinfo.setInstatus(Config.uinacarinfo_instatus_ok);
             uinacarinfo.setEndtime(new Date());
             uinacarinfoMapper.updateByPrimaryKey(uinacarinfo);
-            if (uinacarinfo.getOutinfo()>16){
-                if (VerifyUtil.checkEmail(uinacarinfo.getEmail())){
-                    SentEmail.sentEmail(uinacarinfo.getEmail(),Config.TimeOutEmail,Config.LOGIN);
+            if (uinacarinfo.getOutinfo() > 16) {
+                if (VerifyUtil.checkEmail(uinacarinfo.getEmail())) {
+                    SentEmail.sentEmail(uinacarinfo.getEmail(), Config.TimeOutEmail, Config.LOGIN);
                 }
             }
         }
     }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+//    @InitBinder
+//    public void initBinder(final WebDataBinder webdataBinder) {
+//        webdataBinder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+//            @Override
+//            public void setAsText(String text) throws IllegalArgumentException {
+//                try {
+//                    setValue(new Date(Long.valueOf(text)));
+//                } catch (NumberFormatException e) {
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                    setValue(text);
+//                }
+//            }
+//        });
+//    }
 }

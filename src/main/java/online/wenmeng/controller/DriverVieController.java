@@ -14,7 +14,7 @@ import java.util.Map;
  * 司机抢单的控制类
  */
 @RestController
-public class DriverVieController {
+public class DriverVieController extends BaseController {
 /*
 需要新增
     查询所有拼车完成的订单

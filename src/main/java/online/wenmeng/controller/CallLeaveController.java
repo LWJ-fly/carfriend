@@ -17,7 +17,7 @@ import java.util.Map;
  * @version: 1.0
  */
 @RestController
-public class CallLeaveController {
+public class CallLeaveController extends BaseController{
 
     @Autowired
     private CallLeaveService callLeaveService;

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
-public class UInfoController {
+public class UInfoController extends BaseController {
 
     @Autowired
     private UInfoService uInfoService;

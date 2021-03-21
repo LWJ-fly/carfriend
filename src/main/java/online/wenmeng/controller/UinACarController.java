@@ -15,7 +15,7 @@ import java.util.Map;
  * @version: 1.0
  */
 @RestController
-public class UinACarController {
+public class UinACarController extends BaseController {
 
     @Autowired
     private UinACarService uinACarService;

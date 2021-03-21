@@ -7,12 +7,12 @@ import online.wenmeng.exception.ServerException;
 import online.wenmeng.service.CarFriendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.beans.PropertyEditorSupport;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 
 @RestController
-public class CarFriendController {
+public class CarFriendController extends BaseController{
     @Autowired
     private CarFriendService carFriendServices;
 
@@ -145,5 +145,6 @@ public class CarFriendController {
     public Map<String,Object> quitCarFriend(HttpSession session,@PathVariable("carId") int carId) throws ParameterErrorException {
         return carFriendServices.quitCarFriend(session,carId);
     }
+
 
 }

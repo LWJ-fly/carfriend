@@ -248,6 +248,9 @@ public class CarFriendService {
     }
 
     public Uinacarinfo hideProcessing(Uinacarinfo uinacarinfo){
+        if (uinacarinfo==null){
+            return null;
+        }
         uinacarinfo.setEmail(hideStrProcessing(uinacarinfo.getEmail()));
         uinacarinfo.setPhone(hideStrProcessing(uinacarinfo.getPhone()));
         uinacarinfo.setQqnum(hideStrProcessing(uinacarinfo.getQqnum()));
@@ -256,11 +259,17 @@ public class CarFriendService {
     }
 
     public String hideStrProcessing(String str){
-        return str.substring(0,3)+"****"+str.substring(str.length()-3,str.length());
+        if (str==null){
+            return null;
+        }
+        return str.substring(0,3)+"****"+str.substring(str.length()-4,str.length());
     }
     public Long hideStrProcessing(Long num){
+        if (num<10000){
+            return 999999999l;
+        }
         String str = num.toString();
-        return TransitionUtil.transitionType(str.substring(0,3)+"0000"+str.substring(str.length()-3,str.length()),Long.class);
+        return TransitionUtil.transitionType(str.substring(0,3)+"0000"+str.substring(str.length()-4,str.length()),Long.class);
     }
 
     public Map<String, Object> findMyDetailCarFriend(HttpSession session, int carId) {
@@ -272,7 +281,7 @@ public class CarFriendService {
         //获取到所有的拼车信息
         List<Uinacarinfo> uinacarinfoList = new ArrayList<>();
         //发起拼车人的信息
-        uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolingcarid(),openId));
+        uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolingcarid(),carfriend.getPoolinguserid()));
         String userids = carfriend.getUserids();
         if (userids!=null) {
             String[] userIds = userids.split(Config.splitUsers);
@@ -280,10 +289,10 @@ public class CarFriendService {
                 uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolinguserid(), TransitionUtil.transitionType(userId.trim(),int.class)));
             }
         }
-        if (!carfriend.getPoolinguserid().equals(openId)&&!carfriend.getUserids().contains(""+openId)){//如果不是拼车内的成员,必要信息进行打码处理
-            return MyUtils.getNewMap(Config.SUCCESS,false,carfriend,hideUinaCarInfo(uinacarinfoList));
+        if (carfriend.getPoolinguserid().equals(openId)||(carfriend.getUserids()!=null&&carfriend.getUserids().contains(""+openId))){//如果不是拼车内的成员,必要信息进行打码处理
+            return MyUtils.getNewMap(Config.SUCCESS,true,carfriend,uinacarinfoList);
         }
-        return MyUtils.getNewMap(Config.SUCCESS,true,carfriend,uinacarinfoList);
+        return MyUtils.getNewMap(Config.SUCCESS,false,carfriend,hideUinaCarInfo(uinacarinfoList));
     }
 
     public Map<String, Object> quitCarFriend(HttpSession session, int carId) throws ParameterErrorException {

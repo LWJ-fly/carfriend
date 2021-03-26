@@ -306,7 +306,7 @@ public class MyUtils {
 
     public static List<Integer> getUsersByCarfriend(Carfriend carfriend){
         List<Integer> list = new ArrayList<>();
-        if (carfriend!=null&&carfriend.getPoolinguserid()==null){
+        if (carfriend!=null&&carfriend.getPoolinguserid()!=null){
             list.add(carfriend.getPoolinguserid());
             if (carfriend.getUserids()!=null){
                 String[] split = carfriend.getUserids().split(Config.splitUsers);

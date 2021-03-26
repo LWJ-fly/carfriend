@@ -281,14 +281,10 @@ public class CarFriendService {
         //获取到所有的拼车信息
         List<Uinacarinfo> uinacarinfoList = new ArrayList<>();
         //发起拼车人的信息
-        uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolingcarid(),carfriend.getPoolinguserid()));
-        String userids = carfriend.getUserids();
-        if (userids!=null) {
-            String[] userIds = userids.split(Config.splitUsers);
-            for (String userId:userIds) {
-                uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolinguserid(), TransitionUtil.transitionType(userId.trim(),int.class)));
+        List<Integer> usersId = MyUtils.getUsersByCarfriend(carfriend);
+            for (Integer userId:usersId) {
+                uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolingcarid(), userId));
             }
-        }
         if (carfriend.getPoolinguserid().equals(openId)||(carfriend.getUserids()!=null&&carfriend.getUserids().contains(""+openId))){//如果不是拼车内的成员,必要信息进行打码处理
             return MyUtils.getNewMap(Config.SUCCESS,true,carfriend,uinacarinfoList);
         }

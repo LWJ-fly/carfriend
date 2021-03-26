@@ -134,7 +134,7 @@ public class CarFriendService {
      * @return
      * @throws ParameterErrorException
      */
-    public Map<String, Object> joinCarFriend(HttpSession session, Uinacarinfo uinacarinfo,Boolean listenerStatus) throws ParameterErrorException {
+    public Map<String, Object> joinCarFriend(HttpSession session,Uinacarinfo uinacarinfo,Boolean listenerStatus) throws ParameterErrorException {
         //获取用户的ID
         Map<String, Object> userLoginInfo = (Map<String, Object>) session.getAttribute(Config.userInfoInRun);
         Integer openId = (Integer) userLoginInfo.get(Config.Openid);
@@ -142,7 +142,8 @@ public class CarFriendService {
         if (uinacarinfo.getPoolingcarid()!=null){
             //查询车辆是否存在
             Carfriend carfriend = carfriendMapper.selectByPrimaryKey(uinacarinfo.getPoolingcarid());
-            if (carfriend!=null&&carfriend.getPoolinguserid().equals(openId)&&!carfriend.getUserids().contains(""+openId)&&carfriend.getGetnum()>0){
+            List<Integer> usersId = MyUtils.getUsersByCarfriend(carfriend);
+            if (carfriend!=null&&!usersId.contains(openId)&&carfriend.getGetnum()>0){
                 int i = 0;
                 if (uinacarinfo.getQqnum()!=null&& VerifyUtil.checkWXOrQQ(uinacarinfo.getQqnum())){
                     i = Config.uinacarinfo_outinfo_qqnum;

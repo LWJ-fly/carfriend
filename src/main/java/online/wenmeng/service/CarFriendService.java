@@ -266,8 +266,8 @@ public class CarFriendService {
         return str.substring(0,3)+"****"+str.substring(str.length()-4,str.length());
     }
     public Long hideStrProcessing(Long num){
-        if (num<10000){
-            return 999999999l;
+        if (num==null||num<10000){
+            return 10000000000l;
         }
         String str = num.toString();
         return TransitionUtil.transitionType(str.substring(0,3)+"0000"+str.substring(str.length()-4,str.length()),Long.class);

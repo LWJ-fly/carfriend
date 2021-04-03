@@ -31,6 +31,8 @@ public class AdminService {
     private DrivercarMapper drivercarMapper;
     @Autowired
     private DrivervieMapper drivervieMapper;
+    @Autowired
+    private UinacarinfoMapper uinacarinfoMapper;
 
     public Map<String, Object> findAllDriver(HttpSession session) {
         UloginExample uloginExample = new UloginExample();
@@ -131,11 +133,28 @@ public class AdminService {
     }
 
     public Map<String, Object> carfriendInfo(HttpSession session, int poolingcarid) {
+        //获取到拼车信息
         Carfriend carfriend = carfriendMapper.selectByPrimaryKey(poolingcarid);
-        if (carfriend != null) {
-            return MyUtils.getNewMap(Config.SUCCESS,null,null,carfriend);
+        //获取到所有的拼车信息
+        List<Uinacarinfo> uinacarinfoList = new ArrayList<>();
+        //发起拼车人的信息
+        List<Integer> usersId = MyUtils.getUsersByCarfriend(carfriend);
+        for (Integer userId:usersId) {
+            uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolingcarid(), userId));
         }
-        return MyUtils.getNewMap(Config.ERROR,null,"Parameter error",poolingcarid);
+        return MyUtils.getNewMap(Config.SUCCESS,true,carfriend,uinacarinfoList);
+    }
+    /**
+     * 通过主键获取用户拼车信息
+     * @param carId 拼车信息的ID
+     * @param userId 用户的ID
+     * @return
+     */
+    public Uinacarinfo getUinacarinfoByCarIdAndUserId(int carId,int userId){
+        UinacarinfoKey uinacarinfoKey = new Uinacarinfo();
+        uinacarinfoKey.setPoolingcarid(carId);
+        uinacarinfoKey.setUserid(userId);
+        return uinacarinfoMapper.selectByPrimaryKey(uinacarinfoKey);
     }
 
     public Map<String, Object> updateCarfriendInfo(HttpSession session, Carfriend carfriend) {

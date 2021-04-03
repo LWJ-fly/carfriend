@@ -32,6 +32,20 @@ public class AdminController {
         return adminService.findAllDriver(session);
     }
     /**
+     * 权限变更为用户
+     */
+    @RequestMapping("driver2user/{driverId}")
+    public Map<String,Object> adminDriver2user(HttpSession session,@PathVariable("driverId") int driverId) throws Exception{
+        return adminService.driver2user(session,driverId);
+    }
+    /**
+     * 权限变更为车主
+     */
+    @RequestMapping("user2driver/{driverId}")
+    public Map<String,Object> adminUser2driver(HttpSession session,@PathVariable("driverId") int driverId) throws Exception{
+        return adminService.user2driver(session,driverId);
+    }
+    /**
      * 修改司机、用户 信息
      */
     @RequestMapping("updateUserInfo")

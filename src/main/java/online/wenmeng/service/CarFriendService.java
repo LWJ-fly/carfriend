@@ -260,7 +260,7 @@ public class CarFriendService {
     }
 
     public String hideStrProcessing(String str){
-        if (str==null){
+        if (str==null||str.length()<4){
             return null;
         }
         return str.substring(0,3)+"****"+str.substring(str.length()-4,str.length());
@@ -283,10 +283,10 @@ public class CarFriendService {
         List<Uinacarinfo> uinacarinfoList = new ArrayList<>();
         //发起拼车人的信息
         List<Integer> usersId = MyUtils.getUsersByCarfriend(carfriend);
-            for (Integer userId:usersId) {
-                uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolingcarid(), userId));
-            }
-        if (carfriend.getPoolinguserid().equals(openId)||(carfriend.getUserids()!=null&&carfriend.getUserids().contains(""+openId))){//如果不是拼车内的成员,必要信息进行打码处理
+        for (Integer userId:usersId) {
+            uinacarinfoList.add(getUinacarinfoByCarIdAndUserId(carfriend.getPoolingcarid(), userId));
+        }
+        if (usersId.contains(openId)){//如果不是拼车内的成员,必要信息进行打码处理
             return MyUtils.getNewMap(Config.SUCCESS,true,carfriend,uinacarinfoList);
         }
         return MyUtils.getNewMap(Config.SUCCESS,false,carfriend,hideUinaCarInfo(uinacarinfoList));

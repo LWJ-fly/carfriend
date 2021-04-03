@@ -1,5 +1,6 @@
 package online.wenmeng.service;
 
+import com.sun.org.apache.bcel.internal.generic.IFNONNULL;
 import online.wenmeng.bean.*;
 import online.wenmeng.config.Config;
 import online.wenmeng.dao.*;
@@ -179,5 +180,29 @@ public class AdminService {
             list.add(uinfoMapper.selectByPrimaryKey(ulogin.getUserid()));
         }
         return MyUtils.getNewMap(Config.SUCCESS,null,null,list);
+    }
+
+    public Map<String, Object> driver2user(HttpSession session, int driverId) {
+        Ulogin ulogin = uloginMapper.selectByPrimaryKey(driverId);
+        if (ulogin != null) {
+            ulogin.setUsable(Config.ulogin_usable_user);
+            int i = uloginMapper.updateByPrimaryKey(ulogin);
+            if (i>0){
+                return MyUtils.getNewMap(Config.SUCCESS,null,null,ulogin);
+            }
+        }
+        return MyUtils.getNewMap(Config.ERROR,null,"Parameter error",driverId);
+    }
+
+    public Map<String, Object> user2driver(HttpSession session, int driverId) {
+        Ulogin ulogin = uloginMapper.selectByPrimaryKey(driverId);
+        if (ulogin != null) {
+            ulogin.setUsable(Config.ulogin_usable_driver);
+            int i = uloginMapper.updateByPrimaryKey(ulogin);
+            if (i>0){
+                return MyUtils.getNewMap(Config.SUCCESS,null,null,ulogin);
+            }
+        }
+        return MyUtils.getNewMap(Config.ERROR,null,"Parameter error",driverId);
     }
 }

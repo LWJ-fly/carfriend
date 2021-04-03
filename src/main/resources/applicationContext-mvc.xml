@@ -43,6 +43,8 @@
         <aop:aspect id="Log" ref="baseService">
             <!-- 验证用户登录 -->
             <aop:before method="loginCheck" pointcut="execution(* *..*.*.*(..,javax.servlet.http.HttpSession,..))"/>
+            <!-- 验证管理员登录 -->
+            <aop:before method="AdminLogin" pointcut="execution(* online.wenmeng.controller.AdminController.admin*(..,javax.servlet.http.HttpSession,..))"/>
             <!-- 拼车收费拦截验证 -->
             <aop:before method="joinOrCreatCheck"
                         pointcut="execution(* online.wenmeng.controller.CarFriendController.createCarFriend(..))"/>

@@ -66,7 +66,7 @@ public class DriverVieService {
     public Map<String, Object> quitPull(HttpSession session, Integer vieid) throws ParameterErrorException {
         int openId = checkDriver(session);
         Drivervie drivervie = drivervieMapper.selectByPrimaryKey(vieid);
-        if (drivervie.getDriverid().equals(openId)){
+        if (drivervie!=null&&drivervie.getDriverid().equals(openId)){
             drivervie.setViestatus(Config.drivervie_viestatus_quit);
             if (drivervieMapper.updateByPrimaryKey(drivervie)>0){
                 return MyUtils.getNewMap(Config.SUCCESS,null,null,drivervie);
@@ -84,7 +84,7 @@ public class DriverVieService {
     public int checkDriver(HttpSession session) throws ParameterErrorException {
         Map<String, Object> userLoginInfo = (Map<String, Object>) session.getAttribute(Config.userInfoInRun);
         int usable = (int) userLoginInfo.get(Config.Usable);
-        if (usable!=2){
+        if (usable<2){
             throw new ParameterErrorException();
         }
         return  (int) userLoginInfo.get(Config.Openid);

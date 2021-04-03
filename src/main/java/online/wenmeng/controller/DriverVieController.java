@@ -4,6 +4,7 @@ import online.wenmeng.bean.Drivervie;
 import online.wenmeng.exception.ParameterErrorException;
 import online.wenmeng.service.DriverVieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +36,7 @@ public class DriverVieController extends BaseController {
      * @param drivervie 申请载客的拼车ID，拼车的ID,司机的报价，抢单的留言，这三个，载客ID必须，另外不必
      * @return 返回申请数据
      */
-    @RequestMapping("applyPull/{poolingcarid}")
+    @RequestMapping("applyPull")
     public Map<String,Object> applyPull(HttpSession session, Drivervie drivervie ) throws ParameterErrorException {
         return driverVieService.applyPull(session,drivervie);
     }
@@ -46,7 +47,7 @@ public class DriverVieController extends BaseController {
      * @return 返回表中的变更状态
      */
     @RequestMapping("quitPull/{vieid}")
-    public Map<String,Object> quitPull(HttpSession session,Integer vieid) throws ParameterErrorException {
+    public Map<String,Object> quitPull(HttpSession session,@PathVariable("vieid") Integer vieid) throws ParameterErrorException {
         return driverVieService.quitPull(session,vieid);
     }
 
@@ -101,7 +102,7 @@ public class DriverVieController extends BaseController {
      * @return
      */
     @RequestMapping("findPullInfo/{poolingcarid}")
-    public Map<String,Object> findPullInfo(HttpSession session,Integer poolingcarid) throws ParameterErrorException {
+    public Map<String,Object> findPullInfo(HttpSession session,@PathVariable("poolingcarid") Integer poolingcarid) throws ParameterErrorException {
         return driverVieService.findPullInfo(session,poolingcarid);
     }
 
@@ -112,7 +113,7 @@ public class DriverVieController extends BaseController {
      * @return
      */
     @RequestMapping("dealApplyPull/{vieid}/{reply}")
-    public Map<String,Object> dealApplyPull(HttpSession session,Integer vieid, Boolean reply) throws ParameterErrorException {
+    public Map<String,Object> dealApplyPull(HttpSession session,@PathVariable("vieid") Integer vieid,@PathVariable("reply") Boolean reply) throws ParameterErrorException {
         return driverVieService.dealApplyPull(session,vieid,reply);
     }
 

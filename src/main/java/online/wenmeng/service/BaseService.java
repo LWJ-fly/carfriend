@@ -7,6 +7,7 @@ import online.wenmeng.dao.UinacarinfoMapper;
 import online.wenmeng.dao.UinfoMapper;
 import online.wenmeng.exception.LoginException;
 import online.wenmeng.exception.NoMoneyException;
+import online.wenmeng.exception.ParameterErrorException;
 import online.wenmeng.utils.MyUtils;
 import online.wenmeng.utils.SentEmail;
 import online.wenmeng.utils.VerifyUtil;
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: 狼芒
@@ -74,6 +76,22 @@ public class BaseService {
             Object sessionAttribute = session.getAttribute(Config.userInfoInRun);
             if (sessionAttribute == null)
                 throw new LoginException();
+        }
+    }
+
+    /**
+     * 验证是否是管理员用户
+     */
+    public void AdminLogin() throws ParameterErrorException {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String methodName = request.getServletPath();
+        methodName = methodName.split("/")[1];
+        if (!releaseMethod.contains(methodName)) {
+            HttpSession session = request.getSession();
+            Map<String, Object> userLoginInfo = (Map<String, Object>) session.getAttribute(Config.userInfoInRun);
+            if (userLoginInfo == null||( (int) userLoginInfo.get(Config.Usable))<3){
+                throw new ParameterErrorException();
+            }
         }
     }
 

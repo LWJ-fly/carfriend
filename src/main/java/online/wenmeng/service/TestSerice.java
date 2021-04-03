@@ -2,8 +2,10 @@ package online.wenmeng.service;
 
 import online.wenmeng.bean.Uinfo;
 import online.wenmeng.bean.UinfoExample;
+import online.wenmeng.bean.Ulogin;
 import online.wenmeng.config.Config;
 import online.wenmeng.dao.UinfoMapper;
+import online.wenmeng.dao.UloginMapper;
 import online.wenmeng.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +26,15 @@ public class TestSerice {
     @Autowired
     private UinfoMapper uinfoMapper;
 
+    @Autowired
+    private UloginMapper uloginMapper;
+
 
     public Map<String, Object> setLogininfo(HttpSession session, int openid) {
+        Ulogin ulogin = uloginMapper.selectByPrimaryKey(openid);
         Uinfo uinfo = uinfoMapper.selectByPrimaryKey(openid);
         if (uinfo!=null){
-            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(openid, uinfo.getNickname(),uinfo.getGender()==1?"男":"女", null,1);
+            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(openid, uinfo.getNickname(),uinfo.getGender()==1?"男":"女", null,ulogin.getUsable());
             session.setAttribute(Config.userInfoInRun,userLoginInfo);
             return  MyUtils.getNewMap(Config.SUCCESS,Config.INDEX,uinfo,userLoginInfo);
         }

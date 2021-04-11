@@ -23,16 +23,17 @@ public class DriverCarController extends BaseController {
     /**
      * 更新司机车辆信息
      * @param session
-     * @param drivercar
-     * @return
+     * @param drivercar 司机所更新的车辆信息
+     * @return 司机更新后的信息
      */
     @RequestMapping("upDateDriverCar")
-    public Map<String,Object> upDateDriverCar(HttpSession session, Drivercar drivercar) throws ParameterErrorException {
+    public Map<String,Object> upDateDriverCar(HttpSession session, Drivercar drivercar)
+            throws ParameterErrorException {
         return driverCarService.upDateDriverCar(session,drivercar);
     }
 
     /**
-     * 获取拼车司机的拼车信息
+     * 获取拼车司机的所有抢单信息
      * @param session
      * @return
      * @throws ParameterErrorException

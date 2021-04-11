@@ -34,7 +34,8 @@ public class DriverVieService {
         //验证载客信息是否存在,处于正在拼车，或者刚好拼完
         Integer poolingcarid = drivervie.getPoolingcarid();
         Carfriend carfriend = carfriendMapper.selectByPrimaryKey(poolingcarid);
-        if (carfriend==null&&!(carfriend.getPoolingstatus().equals(Config.carfriend_poolingstatus_ing)||carfriend.getPoolingstatus().equals(Config.carfriend_poolingstatus_end))){
+        if (carfriend==null&&!(carfriend.getPoolingstatus().equals(Config.carfriend_poolingstatus_ing)||
+                carfriend.getPoolingstatus().equals(Config.carfriend_poolingstatus_end))){
             throw new ParameterErrorException();
         }
         DrivervieExample drivervieExample = new DrivervieExample();
@@ -56,7 +57,8 @@ public class DriverVieService {
                 break;
             }
         }
-        Drivervie drivervie1 = new Drivervie(vieid,openId,poolingcarid,drivervie.getTotalpay(),new Date(),drivervie.getViemsg(),Config.drivervie_viestatus_ing);
+        Drivervie drivervie1 = new Drivervie(vieid,openId,poolingcarid,drivervie.getTotalpay(),new Date(),
+                drivervie.getViemsg(),Config.drivervie_viestatus_ing);
         if (drivervieMapper.insert(drivervie1)>0){
             return MyUtils.getNewMap(Config.SUCCESS,null,carfriend,drivervie1);
         }

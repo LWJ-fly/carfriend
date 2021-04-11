@@ -113,9 +113,13 @@ public class AdminController {
     //================拼车信息维护==========================
     /**
      * 查看拼车详细信息
+     * @param poolingcarid 拼车信息中的拼车ID
+     * @return 该拼车的详细信息
+     * @throws Exception
      */
     @RequestMapping("carfriendInfo/{poolingcarid}")
-    public Map<String,Object> adminCarfriendInfo(HttpSession session,@PathVariable("poolingcarid") int poolingcarid) throws Exception{
+    public Map<String,Object> adminCarfriendInfo(HttpSession session,@PathVariable("poolingcarid") int poolingcarid)
+            throws Exception{
         return adminService.carfriendInfo(session,poolingcarid);
     }
     /**

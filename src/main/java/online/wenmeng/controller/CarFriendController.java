@@ -46,7 +46,7 @@ public class CarFriendController extends BaseController{
     }
 
     /**
-     * 通过出发地搜索拼车信息————精确查询
+     * 通过出发地搜索拼车信息(精确查询)
      * @return
      */
     @RequestMapping("findCarFriendByOrigin/{origin}")
@@ -54,7 +54,7 @@ public class CarFriendController extends BaseController{
         return carFriendServices.findCarFriendByOrigin(origin);
     }
     /**
-     * 通过出发地搜索拼车信息————模糊查询
+     * 通过出发地搜索拼车信息(模糊查询)
      * @return
      */
     @RequestMapping("findCarFriendByLikeOrigin/{origin}")
@@ -63,7 +63,7 @@ public class CarFriendController extends BaseController{
     }
 
     /**
-     * 通过目的地搜索拼车信息————不需要登录
+     * 通过目的地搜索拼车信息(不需要登录)
      *                                  【精确查询】
      * @return
      */
@@ -73,7 +73,7 @@ public class CarFriendController extends BaseController{
     }
 
     /**
-     * 通过目的地搜索拼车信息————不需要登录
+     * 通过目的地搜索拼车信息(不需要登录)
      *                                  【模糊查询】
      * @return
      */
@@ -84,7 +84,7 @@ public class CarFriendController extends BaseController{
 
 
     /**
-     * 通过出发地和目的地搜索拼车信息————不需要登录
+     * 通过出发地和目的地搜索拼车信息(不需要登录
      *                                  【精确查询】
      * @return
      */
@@ -95,7 +95,7 @@ public class CarFriendController extends BaseController{
 
 
     /**
-     * 通过出发地和目的地搜索拼车信息————不需要登录
+     * 通过出发地和目的地搜索拼车信息(不需要登录
      *                                  【模糊查询】
      * @return
      */
@@ -126,8 +126,8 @@ public class CarFriendController extends BaseController{
 
     /**
      * 查看详细拼车信息
-     *      ————如果没有加入拼车，相应信息会进行保密处理
-     *      ————如果加入拼车，相应信息会进行展示
+     *      (如果没有加入拼车，相应信息会进行保密处理
+     *      (如果加入拼车，相应信息会进行展示
      * @param carId
      * @return
      */

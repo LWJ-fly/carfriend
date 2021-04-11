@@ -23,7 +23,8 @@ import java.util.*;
  */
 public class MyUtils {
 
-    public static Map<String,Object> createUserLoginInfo(int openid,String nickName,String gender,String chatHead,int usable){
+    public static Map<String,Object> createUserLoginInfo(
+            int openid,String nickName,String gender,String chatHead,int usable){
         HashMap<String, Object> map = new HashMap<>();
         map.put(Config.Openid,openid);
         map.put(Config.NickName, nickName);
@@ -48,7 +49,7 @@ public class MyUtils {
 
     /**
      * state 状态(success)、action动作、msg消息、data数据
-     * @return
+     * @return 返回格式化信息的状态
      */
     public static Map<String,Object> getNewMap(String state,Object action,Object msg,Object data){
         HashMap<String, Object> map = new HashMap<>();

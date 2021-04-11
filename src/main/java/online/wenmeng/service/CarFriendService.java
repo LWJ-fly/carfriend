@@ -60,7 +60,8 @@ public class CarFriendService {
 
     public Map<String, Object> findCarFriendByLikeOrigin(String origin) {
         CarfriendExample carfriendExample = new CarfriendExample();
-        carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing).andReadyplaceLike("%"+origin+"%");
+        carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing)
+                .andReadyplaceLike("%"+origin+"%");
         return MyUtils.getNewMap(Config.SUCCESS,null,null,carfriendMapper.selectByExample(carfriendExample));
     }
 
@@ -72,13 +73,15 @@ public class CarFriendService {
 
     public Map<String, Object> findCarFriendByLikeBourn(String bourn) {
         CarfriendExample carfriendExample = new CarfriendExample();
-        carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing).andGoplaceLike("%"+bourn+"%");
+        carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing)
+                .andGoplaceLike("%"+bourn+"%");
         return MyUtils.getNewMap(Config.SUCCESS,null,null,carfriendMapper.selectByExample(carfriendExample));
     }
 
     public Map<String, Object> findCarFriendByTrip(String origin, String bourn) {
         CarfriendExample carfriendExample = new CarfriendExample();
-        carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing).andReadyplaceEqualTo(origin).andGoplaceEqualTo(bourn);
+        carfriendExample.createCriteria().andPoolingstatusEqualTo(Config.carfriend_poolingstatus_ing)
+                .andReadyplaceEqualTo(origin).andGoplaceEqualTo(bourn);
         return MyUtils.getNewMap(Config.SUCCESS,null,null,carfriendMapper.selectByExample(carfriendExample));
     }
 
@@ -116,7 +119,8 @@ public class CarFriendService {
             Uinfo uinfo = uinfoMapper.selectByPrimaryKey(openId);
             //将自己信息进行相应的更改
             Uinacarinfo uinacarinfo = new Uinacarinfo((String)userLoginInfo.get(Config.NickName),(String) userLoginInfo.get(Config.ChatHead),uinfo.getGender(),
-                    null,new Date(),null,Config.uinacarinfo_instatus_join,16,uinfo.getQqnum(),uinfo.getWxnum(),uinfo.getPhone(),uinfo.getEmail(),uinfo.getCredibility());
+                    null,new Date(),null,Config.uinacarinfo_instatus_join,16,uinfo.getQqnum(),uinfo.getWxnum(),uinfo.getPhone(),
+                    uinfo.getEmail(),uinfo.getCredibility());
             uinacarinfo.setPoolingcarid(poolingcarid);
             uinacarinfo.setUserid(openId);
             if (uinacarinfoMapper.insert(uinacarinfo)>0){

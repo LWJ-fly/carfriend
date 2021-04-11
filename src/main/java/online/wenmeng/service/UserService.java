@@ -60,7 +60,8 @@ public class UserService {
                             //将基本信息添加到用户
                             Boolean aBoolean = addUinfo(insertUlogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender").equals("男") ? 1 : 0);
                             if (aBoolean){
-                                Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(insertUlogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"),Config.ulogin_usable_user);
+                                Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(insertUlogin.getUserid(), qqInfo.getString("nickname"),
+                                        qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"),Config.ulogin_usable_user);
                                 session.setAttribute(Config.userInfoInRun,userLoginInfo);
                                 return  MyUtils.getNewMap(Config.SUCCESS,Config.INDEX,null,userLoginInfo);
                             }
@@ -72,7 +73,8 @@ public class UserService {
                                 uinfo.setNickname(qqInfo.getString("nickname"));
                                 uinfoMapper.updateByPrimaryKey(uinfo);
                             }
-                            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(ulogin.getUserid(), qqInfo.getString("nickname"), qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"),ulogin.getUsable());
+                            Map<String, Object> userLoginInfo = MyUtils.createUserLoginInfo(ulogin.getUserid(), qqInfo.getString("nickname"),
+                                    qqInfo.getString("gender"), qqInfo.getString("figureurl_qq_1"),ulogin.getUsable());
                             session.setAttribute(Config.userInfoInRun,userLoginInfo);
                             return  MyUtils.getNewMap(Config.SUCCESS,Config.INDEX,null,userLoginInfo);
                         }else {

@@ -42,12 +42,14 @@ public class DriverVieController extends BaseController {
     }
 
     /**
+     * 司机退出抢单申请
      * @param session 系统自动获取
      * @param vieid 抢单的ID，司机抢单后生成表中的ID
      * @return 返回表中的变更状态
      */
     @RequestMapping("quitPull/{vieid}")
-    public Map<String,Object> quitPull(HttpSession session,@PathVariable("vieid") Integer vieid) throws ParameterErrorException {
+    public Map<String,Object> quitPull(HttpSession session,@PathVariable("vieid") Integer vieid)
+            throws ParameterErrorException {
         return driverVieService.quitPull(session,vieid);
     }
 
@@ -64,30 +66,20 @@ public class DriverVieController extends BaseController {
 
     /**
      * 当前申请的载客信息
-     * @param session
-     * @return
      */
     @RequestMapping("findApplyPull")
     public Map<String,Object> findApplyPull(HttpSession session) throws ParameterErrorException {
         return driverVieService.findApplyPull(session);
     }
-
-
     /**
      * 查看同意的载客信息
-     * @param session
-     * @return
      */
     @RequestMapping("findAgreePull")
     public Map<String,Object> findAgreePull(HttpSession session) throws ParameterErrorException {
         return driverVieService.findAgreePull(session);
     }
-
-
     /**
      * 查看不同意的载客信息
-     * @param session
-     * @return
      */
     @RequestMapping("findFilePull")
     public Map<String,Object> findFilePull(HttpSession session) throws ParameterErrorException {

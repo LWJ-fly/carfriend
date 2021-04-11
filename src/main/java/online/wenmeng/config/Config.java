@@ -100,8 +100,7 @@ ulogin
     public static int drivervie_viestatus_quit = 2;
     public static int drivervie_viestatus_success = 3;
 /*
-carfriend
-    poolingstatus:
+carfriend poolingstatus:
         ing     1 拼车中
         end     2 拼车完成
         timeOut 3 拼车超时但有人
@@ -125,6 +124,7 @@ carfriend
     public static int carfriend_poolinglimit_no = 0;
     public static int carfriend_poolinglimit_boy = -1;
     public static int carfriend_poolinglimit_gril = -2;
+
 
 
 
